@@ -11,11 +11,15 @@ class CertificateTranslation(TranslationOptions):
 
 
 class FeedBackTranslation(TranslationOptions):
-    fields = ('description',)
+    fields = ('description', 'full_name', 'profession')
 
 
 class FAQTranslation(TranslationOptions):
     fields = ('answer', 'question')
+
+
+class FAQTypeTranslation(TranslationOptions):
+    fields = ('title',)
 
 
 class PricePlanTranslation(TranslationOptions):
@@ -30,7 +34,24 @@ class ServiceTranslation(TranslationOptions):
     fields = ('title',)
 
 
+class OrderTranslation(TranslationOptions):
+    fields = ('full_name', 'message')
+
+
+class WorkersTranslation(TranslationOptions):
+    fields = ('full_name', 'profession')
+
+
+class ProductTranslation(TranslationOptions):
+    fields = ('title',)
+
+
+class TagsTranslation(TranslationOptions):
+    fields = ('title',)
+
+
 for a, b in [(Certificate, CertificateTranslation), (WhyUs, WhyUsTranslation), (FeadBack, FeedBackTranslation),
              (Faq, FAQTranslation), (PriceList, PricePlanTranslation), (Features, FeatureTranslation),
-             (Services, ServiceTranslation)]:
+             (Services, ServiceTranslation), (FaqType, FAQTypeTranslation), (Orders, OrderTranslation),
+             (Projects, ProductTranslation), (Tags, TagsTranslation), (Workers, WorkersTranslation)]:
     translator.register(a, b)

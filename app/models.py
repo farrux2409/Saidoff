@@ -13,12 +13,15 @@ class BaseModel(models.Model):
 
 
 class WhyUs(models.Model):
-    title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="images/")
-    description = models.TextField()
+    title = models.CharField(max_length=100, null=True, blank=True)
+    image = models.ImageField(upload_to="media/")
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        app_label = 'app'
 
 
 class Services(models.Model):
@@ -27,11 +30,22 @@ class Services(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        app_label = 'app'
+
+
+class ServiceCategory(models.Model):
+    title = models.CharField(max_length=100)
+    service = models.ForeignKey(Services, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
 
 class ServiceInfo(models.Model):
     service_name = models.CharField(max_length=100)
     description = models.TextField()
-    services = models.ForeignKey(Services, on_delete=models.CASCADE)
+    service_cat = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.service_name
@@ -57,14 +71,13 @@ class Tags(models.Model):
 
 class Projects(BaseModel):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to="media/")
     link = models.URLField()
     service = models.ForeignKey(Services, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tags)
 
     def __str__(self):
         return self.title
-
 
 
 class FaqType(models.Model):
@@ -80,46 +93,38 @@ class Faq(models.Model):
     faq_type = models.ForeignKey(FaqType, on_delete=models.CASCADE)
 
 
+class PriceList(models.Model):
+    title = models.CharField(max_length=100)
+    price = models.IntegerField()
+    limit_user = models.CharField(max_length=100)
+    limit_date = models.CharField(max_length=100)
+
+
 class Features(models.Model):
     title = models.CharField(max_length=100)
     is_checkout = models.BooleanField(default=False)
+    price_list = models.ForeignKey(PriceList, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
 
 
-class PriceList(models.Model):
-    price = models.IntegerField()
-    limit_user = models.CharField(max_length=100)
-    limit_date = models.CharField(max_length=100)
-    features = models.ForeignKey(Features, on_delete=models.CASCADE)
-
-
 class Partners(models.Model):
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to="media/")
 
 
 class Workers(models.Model):
     full_name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to="media/")
     profession = models.CharField(max_length=100)
 
     def __str__(self):
         return self.full_name
 
 
-class Portfolio(models.Model):
-    title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="images/")
-    link = models.URLField()
-
-    def __str__(self):
-        return self.title
-
-
 class FeadBack(BaseModel):
     full_name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to="media/")
     description = models.TextField()
     profession = models.CharField(max_length=100)
 
@@ -130,7 +135,7 @@ class FeadBack(BaseModel):
 class Certificate(models.Model):
     title = models.CharField(max_length=100)
     inform = models.TextField()
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to="media/")
 
     def __str__(self):
         return self.title

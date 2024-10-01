@@ -1,4 +1,3 @@
-from msilib import Feature
 
 from rest_framework import serializers
 
@@ -17,79 +16,79 @@ class ServiceModelSerializer(serializers.ModelSerializer):
         fields = ['title', ]
 
 
+class ServiceCategoryModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceCategory
+        fields = ['title', 'service']
+
+
 class ServiceInfoModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceInfo
-        fields = ['service_name', 'description', 'services']
+        fields = ['service_name', 'description', 'service_cat']
 
 
 class ProjectsModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projects
-        fields = '__all__'
+        fields = ['title', 'image', 'link', 'service', 'tags']
 
 
 class FaqTypeModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = FaqType
-        fields = '__all__'
+        fields = ['title', ]
 
 
 class FaqModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Faq
-        fields = '__all__'
+        fields = ['question', 'answer', 'faq_type']
 
 
 class FeatureModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Features
-        fields = '__all__'
+        fields = ['title', 'is_checkout', 'price_list']
 
 
 class PriceListModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = PriceList
-        fields = '__all__'
+        fields = ['title', 'price', 'limit_date', 'limit_user']
 
 
 class PartnersModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Partners
-        fields = '__all__'
+        fields = ['image', ]
 
 
 class WorkersModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workers
-        fields = '__all__'
-
-
-class PortfolioModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Portfolio
-        fields = '__all__'
+        fields = ['full_name', 'image', 'profession']
 
 
 class CommentsModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeadBack
-        fields = '__all__'
+        fields = ['full_name', 'profession', 'description', 'image']
 
 
 class CertificatesModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Certificate
-        fields = '__all__'
+        fields = ['title', 'image', 'inform']
 
 
 class OrdersModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
-        fields = '__all__'
+        fields = ['full_name', 'phone_number', 'service_name', 'message', 'is_checkout']
 
 
 class TagsModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tags
-        fields = '__all__'
+        fields = ['title', ]

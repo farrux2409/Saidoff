@@ -17,6 +17,13 @@ class ServicesAdmin(admin.ModelAdmin):
     list_filter = ('title',)
 
 
+@admin.register(ServiceCategory)
+class ServiceCategoryAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+    list_filter = ('title',)
+
+
 @admin.register(ServiceInfo)
 class ServiceInfoAdmin(admin.ModelAdmin):
     list_display = ('service_name', 'description')
@@ -28,7 +35,7 @@ class ServiceInfoAdmin(admin.ModelAdmin):
 class OrdersAdmin(admin.ModelAdmin):
     list_display = ('service_name', 'phone_number', 'full_name', 'is_checkout')
     search_fields = ('phone_number', 'full_name')
-    list_filter = ('service_name', 'is_checkout')
+    list_filter = ('service_name',)
 
 
 @admin.register(Tags)
@@ -83,13 +90,6 @@ class WorkersAdmin(admin.ModelAdmin):
     list_filter = ('full_name', 'profession')
 
 
-@admin.register(Portfolio)
-class PortfolioAdmin(admin.ModelAdmin):
-    list_display = ('title', 'image')
-    search_fields = ('title',)
-    list_filter = ('title',)
-
-
 @admin.register(FeadBack)
 class FeadBackAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'description', 'profession')
@@ -102,4 +102,3 @@ class CertificateAdmin(admin.ModelAdmin):
     list_display = ('title', 'image', 'inform')
     search_fields = ('title',)
     list_filter = ('title',)
-

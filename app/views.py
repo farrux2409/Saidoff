@@ -1,10 +1,8 @@
-from .serializers import *
-from .models import *
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, ListCreateAPIView
 from rest_framework.permissions import AllowAny
 
+from .serializers import *
 
-# Create your views here.
 
 class WhyUsView(ListAPIView):
     serializer_class = AboutModelSerializer
@@ -18,10 +16,17 @@ class OurServiceView(ListAPIView):
     permission_classes = (AllowAny,)
 
 
-class ServiceInfoView(ListAPIView):
+class ServiceCategoryView(ListAPIView):
+    serializer_class = ServiceCategoryModelSerializer
+    queryset = ServiceCategory.objects.all()
+    permission_classes = (AllowAny,)
+
+
+class ServiceInfoView(RetrieveAPIView):
     serializer_class = ServiceInfoModelSerializer
     queryset = ServiceInfo.objects.all()
     permission_classes = (AllowAny,)
+    lookup_field = 'pk'
 
 
 class PartnersView(ListAPIView):
@@ -90,19 +95,13 @@ class TagsView(ListAPIView):
     permission_classes = (AllowAny,)
 
 
-class PortfoliosView(ListAPIView):
-    serializer_class = PortfolioModelSerializer
-    queryset = Portfolio.objects.all()
-    permission_classes = (AllowAny,)
-
-
 class CommentsView(ListAPIView):
     serializer_class = CommentsModelSerializer
     queryset = FeadBack.objects.all()
     permission_classes = (AllowAny,)
 
 
-class CommentsCreateView(CreateAPIView):
+class CommentCreateView(ListCreateAPIView):
     serializer_class = CommentsModelSerializer
     queryset = FeadBack.objects.all()
     permission_classes = (AllowAny,)
